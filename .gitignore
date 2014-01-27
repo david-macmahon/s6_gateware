@@ -1,0 +1,7 @@
+# Ignore log files
+*.log
+
+# Ignore all files in pfb_fir_core directory
+/pfb_fir_core
+# Then UN-ignore pfb_fir_core/pfb_fir_core.ngc
+!/pfb_fir_core/pfb_fir_core.ngc
