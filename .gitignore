@@ -1,5 +1,6 @@
-# Ignore log files
-*.log
+# Ignore files
+/*.autosave
+/*.log
 
 # Ignore all files in pfb_fir_core directory
 /pfb_fir_core
