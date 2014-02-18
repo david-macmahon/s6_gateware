@@ -23,7 +23,7 @@ function fft_core_config(this_block)
   dout_port = this_block.port('dout');
   dout_port.setType('UFix_72_0');
   sync_out_port = this_block.port('sync_out');
-  sync_out_port.setType('UFix_1_0');
+  sync_out_port.setType('Bool');
   sync_out_port.useHDLVector(false);
 
   % -----------------------------

@@ -34,7 +34,7 @@ function pfb_fir_core_config(this_block)
   out3_port = this_block.port('out3');
   out3_port.setType('UFix_40_0');
   sync_out_port = this_block.port('sync_out');
-  sync_out_port.setType('UFix_1_0');
+  sync_out_port.setType('Bool');
   sync_out_port.useHDLVector(false);
 
   % -----------------------------
