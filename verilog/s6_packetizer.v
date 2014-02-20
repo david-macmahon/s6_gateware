@@ -60,38 +60,51 @@ module s6_packetizer
   output reg eof
 );
 
-localparam NWORDS_BITS = $clog2(NWORDS);
+// Xilinx xst doesn't like using system function calls like $clog to assign to
+// localparams, so we define this constant function "clog" to replace the
+// system function $clog.
+function integer clog2(input integer n);
+  begin
+    n = n - 1;
+    for(clog2=0; n>0; clog2=clog2+1)
+      n = n >> 1;
+  end
+endfunction
+
+localparam NWORDS_BITS = clog2(NWORDS);
 
 // The safe minimum for DATABUF_DEPTH is at most 2/3 NWORDS, but since that is
 // more than half we are setting it equal to NWORDS (for now).
 localparam DATABUF_DEPTH = NWORDS;
-localparam DATABUF_DEPTH_BITS = $clog2(NWORDS);
+localparam DATABUF_DEPTH_BITS = clog2(NWORDS);
 
 localparam CRC_LATENCY = 7;
 
-reg [NWORDS_BITS-1:0] stop_word = 1'b0;
-reg [NWORDS_BITS-1:0] word_count = 1'b0;
-reg [64-(NWORDS_BITS+1)-4-1:0] mcount = 1'b0;
-reg [64-(NWORDS_BITS+1)-4-1:0] mcount_out = 1'b0;
-reg [NWORDS_BITS-1:0] pkt_start_word = 1'b0;
-reg [NWORDS_BITS-1:0] pkt_stop_word = 1'b0;
+reg [NWORDS_BITS-1:0] stop_word = 0;
+reg [NWORDS_BITS-1:0] word_count = 0;
+reg [64-(NWORDS_BITS+1)-4-1:0] mcount = 0;
+reg [64-(NWORDS_BITS+1)-4-1:0] mcount_out = 0;
+reg [NWORDS_BITS-1:0] pkt_start_addr = 0;
+reg [NWORDS_BITS-1:0] pkt_start_word = 0;
+reg [NWORDS_BITS-1:0] pkt_stop_word = 0;
 reg [3:0] src_id_out = 0;
 
-reg [63:0] din_reg;
+reg [63:0] din_reg = 0;
 
-reg [63:0] dout_int;
-reg        dv_int;
-reg [ 3:0] dst_int, dst_pipeline[CRC_LATENCY-1:0], dst_delay;
-reg        eof_int, eof_pipeline[CRC_LATENCY-1:0];
-reg        sof_int;
+reg [63:0] dout_int = 0;
+reg        dv_int = 0;
+reg [ 3:0] dst_int = 0, dst_pipeline[CRC_LATENCY-1:0], dst_delay = 0;
+reg        eof_int = 0, eof_pipeline[CRC_LATENCY-1:0];
+reg        sof_int = 0;
 
 wire [63:0] dout_crc;
 wire dv_crc;
 wire [31:0] crc_crc;
-reg  [31:0] crc_crc1;
+reg  [31:0] crc_crc1 = 0;
 
 // Data buffer is 64 bits wide
 reg [63:0] databuf[DATABUF_DEPTH-1:0];
+reg [63:0] databuf_out = 0;
 
 reg databuf_we = 1'b0;
 reg [DATABUF_DEPTH_BITS-1:0] wr_addr = 1'b0;
@@ -105,20 +118,20 @@ localparam CRC    = 2'b11;
 reg [1:0] state = IDLE;
 
 reg [NWORDS_BITS-1:0] pkt_word_count = 1'b0;
-reg [2:0] oe_shift_reg = 3'b011;
-wire oe;
+reg [2:0] oe_shift_reg = 0;
+reg holdoff = 0;
 
 // General purpose loop variable
 integer i;
 
-// Initialize data buffer for simulation (and FPGA?)
+// Initialize output registers and memories simulation (and FPGA?)
 initial begin
   for(i=0; i<DATABUF_DEPTH; i=i+1)
     databuf[i] = 0;
-  dout_int <= 64'b0;
-  dv_int <= 1'b0;
-  dst_int <= 4'h0;
-  eof_int <= 1'b0;
+  for(i=0; i<CRC_LATENCY; i=i+1) begin
+    dst_pipeline[i] = 0;
+    eof_pipeline[i] = 0;
+  end
   dout <= 64'b0;
   dv <= 1'b0;
   dst <= 4'h0;
@@ -144,43 +157,41 @@ end
 // Pipelined calculations of stop_word and pkt_stop_word.
 // These are expected to change very infrequently.
 always @(posedge clk) begin
-  stop_word <= start_word + (nwords_per_pkt<<3);
+  stop_word <= start_word + (nwords_per_pkt<<3) - 1;
   pkt_stop_word <= nwords_per_pkt - 1;
 end
 
 // Data buffer write enable logic
 always @(posedge clk) begin
+  din_reg <= din; // Delay din
   if(sync == 1) begin
     wr_addr <= 0;
     databuf_we <= 0;
   end else begin
-    if(word_count == start_word)
+
+    // Databuf write
+    if(databuf_we == 1)
+      databuf[wr_addr] <= din_reg;
+
+    // Databuf read
+    databuf_out <= databuf[rd_addr];
+
+    // Write control logic
+    if(word_count == start_word) begin
       databuf_we <= 1;
-    if(word_count == stop_word) begin
-      databuf_we <= 0;
-      wr_addr <= 0;
     end
+
+    // Write address generation
+    if(databuf_we) begin
+      if(wr_addr == stop_word) begin
+        wr_addr <= 0;
+        databuf_we <= 0;
+      end else
+        wr_addr <= wr_addr + 1;
+    end
+
   end
 end
-
-// Data buffer write logic
-always @(posedge clk) begin
-  din_reg <= din; // Delay din
-  if(databuf_we == 1) begin
-    databuf[wr_addr] <= din_reg;
-    wr_addr <= wr_addr + 1;
-  end
-end
-
-// Data output enable generator
-always @(posedge clk) begin
-  if(sync == 1)
-    oe_shift_reg <= 3'b011;
-  else
-    // Rotate bits
-    oe_shift_reg <= {oe_shift_reg[0], oe_shift_reg[2:1]};
-end
-assign oe = oe_shift_reg[0];
 
 // Output FSM state transition logic
 always @(posedge clk) begin
@@ -188,27 +199,40 @@ always @(posedge clk) begin
   dv_int <= 0;
   sof_int <= 0;
   eof_int <= 0;
+  holdoff <= 0;
 
   if(sync == 1) begin
     // Reset
     state <= IDLE;
-    rd_addr <= 0;
     pkt_start_word <= 0;
     pkt_word_count <= 0;
+    oe_shift_reg <= 0;
+    holdoff <= 0;
   end else begin
+
     // State transition
     case(state)
       IDLE: begin
         if(word_count == start_word) begin
-          // Register mcount and sc_id so that they will not change on us
+          // Register mcount and src_id so that they will not change on us
           // during this output cycle.
           mcount_out <= mcount;
           src_id_out <= src_id;
           pkt_start_word <= start_word;
+          // Move to header state next cycle
+          holdoff <= 1;
+        end
+
+        // Move to header state after a "holdoff" cycle
+        if(holdoff) begin
+          // Start reading location 0 (takes two cycles)
+          rd_addr <= 0;
+          pkt_start_addr <= nwords_per_pkt;
           state <= HEADER;
         end
       end
       HEADER: begin
+
         // Drive outputs
         sof_int <= 1;
         dv_int <= 1;
@@ -218,28 +242,41 @@ always @(posedge clk) begin
         // If zero data words per packet (pathological, I know...)
         if(nwords_per_pkt == 0)
           state <= CRC;
-        else
+        else begin
+          // Read next location (keep feeding the pipeline)
+          rd_addr <= rd_addr + 1;
+          // Prime the output enable shift register
+          oe_shift_reg <= 3'b110;
           // Move on to DATA state
           state <= DATA;
+        end
       end
       DATA: begin
-        // Data state runs two out of every 3 cycles
-        if(oe) begin
+        // oe_shift_reg will be 3'b110 for the DATA first cycle.
+        // Rotate output enable bits left
+        oe_shift_reg <= {oe_shift_reg[1:0], oe_shift_reg[2]};
 
+        if(oe_shift_reg[2]) begin
           // Drive outputs
           dv_int <= 1;
-          dout_int <= databuf[rd_addr];
-          rd_addr <= rd_addr + 1;
+          dout_int <= databuf_out;
 
-          // State transition logic
           // If last word of packet
           if(pkt_word_count == pkt_stop_word) begin
+            oe_shift_reg <= 0;
             pkt_word_count <= 0;
+            // Advance to CRC state
             state <= CRC;
           end else begin
             pkt_word_count <= pkt_word_count + 1;
           end
         end
+
+        // We have already (pre-)fetched two words, so we don't need to
+        // advance if oe_shift_reg[1] is 0.
+        if(oe_shift_reg[1])
+          rd_addr <= rd_addr + 1;
+
       end
       CRC: begin
         // Drive outputs
@@ -255,9 +292,13 @@ always @(posedge clk) begin
           dst_int <= 0;
           state <= IDLE;
         end else begin
+          // Start fetching data for start of next packet (takes two cycles)
+          rd_addr <= pkt_start_addr;
           // Setup for next packet
+          pkt_start_addr <= pkt_start_addr + nwords_per_pkt;
           pkt_start_word <= pkt_start_word + nwords_per_pkt;
           dst_int <= dst_int + 1;
+
           // Go to HEADER state
           state <= HEADER;
         end
