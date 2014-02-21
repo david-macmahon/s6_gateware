@@ -15,8 +15,20 @@ module crc32x64 (
   output [31:0] crc       // 32 bit output CRC
 );
 
+// The init_pipeline shift registers from multiple instances have the
+// potential to be merged/removed due to "equivalent register removal",
+// leading to large fanouts and subsequently poor timing.  This is not
+// a speculative claim; it has occurred in practice for the init_pipeline[4]
+// bit.  The valid_pipeline has a similar potential, though that has not yet
+// been seen in practice.  Since these are only 7 FFs each, there is
+// negligible harm in preventing "equivalent register removal" for these shift
+// registers, but lots of potential benefits.
+(* equivalent_register_removal = "no" *)
 reg  [ 6:0] valid_pipeline = 0; // Pipeline for valid signal
+
+(* equivalent_register_removal = "no" *)
 reg  [ 6:0] init_pipeline  = 0; // Pipeline for init signal
+
 reg  [63:0] data_pipeline[6:0]; // Pipeline for data signal
 
 wire [31:0] lut_out_wire [7:0]; // "Input LUT" output wires
