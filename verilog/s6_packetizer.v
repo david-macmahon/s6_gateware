@@ -119,7 +119,9 @@ reg [1:0] state = IDLE;
 
 reg [NWORDS_BITS-1:0] pkt_word_count = 1'b0;
 reg [2:0] oe_shift_reg = 0;
-reg holdoff = 0;
+reg start = 0;
+reg nodata_packets = 0;
+reg last_packet = 0;
 
 // General purpose loop variable
 integer i;
@@ -199,7 +201,6 @@ always @(posedge clk) begin
   dv_int <= 0;
   sof_int <= 0;
   eof_int <= 0;
-  holdoff <= 0;
 
   if(sync == 1) begin
     // Reset
@@ -207,27 +208,37 @@ always @(posedge clk) begin
     pkt_start_word <= 0;
     pkt_word_count <= 0;
     oe_shift_reg <= 0;
-    holdoff <= 0;
+    start <= 0;
+    nodata_packets <= 0;
+    last_packet <= 0;
   end else begin
+
+    if(word_count == start_word) begin
+      // Register mcount and src_id so that they will not change on us
+      // during this output cycle.
+      mcount_out <= mcount;
+      src_id_out <= src_id;
+      pkt_start_word <= start_word;
+      // Start reading location 0; data valid after two cycles.
+      rd_addr <= 0;
+      pkt_start_addr <= nwords_per_pkt;
+      // Set "start" flag
+      start <= 1;
+    end else
+      start <= 0;
+
+
+    // Send "no data" packets?
+    nodata_packets <= (nwords_per_pkt == 0);
+
+    // Detect last packet
+    last_packet <= (dst_int == 7);
 
     // State transition
     case(state)
       IDLE: begin
-        if(word_count == start_word) begin
-          // Register mcount and src_id so that they will not change on us
-          // during this output cycle.
-          mcount_out <= mcount;
-          src_id_out <= src_id;
-          pkt_start_word <= start_word;
-          // Move to header state next cycle
-          holdoff <= 1;
-        end
-
-        // Move to header state after a "holdoff" cycle
-        if(holdoff) begin
-          // Start reading location 0 (takes two cycles)
-          rd_addr <= 0;
-          pkt_start_addr <= nwords_per_pkt;
+        // Move to header state once we get the start signal
+        if(start) begin
           state <= HEADER;
         end
       end
@@ -240,7 +251,7 @@ always @(posedge clk) begin
 
         // State transition logic
         // If zero data words per packet (pathological, I know...)
-        if(nwords_per_pkt == 0)
+        if(nodata_packets)
           state <= CRC;
         else begin
           // Read next location (keep feeding the pipeline)
@@ -286,7 +297,7 @@ always @(posedge clk) begin
 
         // State transition logic
         // If last packet
-        if(dst_int == 7) begin
+        if(last_packet) begin
           // No more packets, return to IDLE
           pkt_start_word <= 0;
           dst_int <= 0;
