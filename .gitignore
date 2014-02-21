@@ -3,11 +3,11 @@
 /*.log
 
 # Ignore all files in fft_core directory
-/fft_core
+/fft_core/*
 # Then UN-ignore fft_core/fft_core.ngc
 !/fft_core/fft_core.ngc
 
 # Ignore all files in pfb_fir_core directory
-/pfb_fir_core
+/pfb_fir_core/*
 # Then UN-ignore pfb_fir_core/pfb_fir_core.ngc
 !/pfb_fir_core/pfb_fir_core.ngc
