@@ -35,12 +35,15 @@
 //     DATA(nwords_per_pkt-1)
 //     CRC
 //
-//  Note that CRC is just a placeholder for the CRC.  It is is filled 64 1 bits.
+//  Note that CRC is in the upper 32 bits of the 64-bit word and zeros are in
+//  the lower 32 bits.
 //
 // * Header format (for NWORDS=2048)
 // 
 //     {scount[47:0}, {word[10:0], 1'b0}, src_id[3:0]}
 //
+
+(* equivalent_register_removal = "no" *)
 
 module s6_packetizer
 #(
