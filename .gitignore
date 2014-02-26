@@ -11,3 +11,12 @@
 /pfb_fir_core/*
 # Then UN-ignore pfb_fir_core/pfb_fir_core.ngc
 !/pfb_fir_core/pfb_fir_core.ngc
+
+# Ignore all files in s6 directory...
+/s6/*
+# ...then UN-ignore s6/bit_files directory...
+!/s6/bit_files
+# ...then ignore all files in s6/bit_files directory...
+/s6/bit_files/*
+# ...then UN-ignore s6/bit_files/*.bof.gz files.
+!/s6/bit_files/*.bof.gz
