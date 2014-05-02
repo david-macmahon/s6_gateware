@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.82"
+    ComputedModelVersion    "1.83"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -41,9 +41,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "mdexter"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 03 07:26:35 2014"
-  RTWModifiedTimeStamp	  318410780
-  ModelVersionFormat	  "1.%<AutoIncrement:82>"
+  LastModifiedDate	  "Fri May 02 14:22:25 2014"
+  RTWModifiedTimeStamp	  320941335
+  ModelVersionFormat	  "1.%<AutoIncrement:83>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -81,7 +81,6 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "cross_vzmac_core"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -800,7 +799,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "135"
+    SIDHighWatermark	    "137"
     Block {
       BlockType		      Reference
       Name		      " System Generator"
@@ -1281,6 +1280,44 @@ Model {
 	  Position		  [200, 143, 230, 157]
 	  Port			  "5"
 	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Assert"
+	  SID			  "137"
+	  Ports			  [1, 1]
+	  Position		  [420, 225, 480, 255]
+	  BlockMirror		  on
+	  ShowName		  off
+	  LibraryVersion	  "1.2"
+	  SourceBlock		  "xbsIndex_r4/Assert"
+	  SourceType		  "Xilinx Assert Block"
+	  infoedit		  "Asserts a user-defined sample rate and/or type on a signal.<br><br>Hardware notes: In hardware this bl"
+	  "ock costs nothing."
+	  assert_type		  on
+	  type_source		  "Explicitly"
+	  gui_display_data_type	  "Fixed-point"
+	  arith_type		  "Signed  (2's comp)"
+	  n_bits		  "21"
+	  bin_pt		  "14"
+	  preci_type		  "Single"
+	  exp_width		  "8"
+	  frac_width		  "24"
+	  assert_rate		  on
+	  rate_source		  "Explicitly"
+	  period		  "1"
+	  output_port		  on
+	  has_advanced_control	  "0"
+	  sggui_pos		  "-1,-1,-1,-1"
+	  block_type		  "assert"
+	  sg_icon_stat		  "60,30,1,1,white,blue,0,9657e937,left,,[ ],[ ]"
+	  sg_mask_display	  "fprintf('','COMMENT: begin icon graphics');\npatch([0 60 60 0 0 ],[0 0 30 30 0 ],[0.77 0.82 0.91"
+	  " ]);\nplot([0 60 60 0 0 ],[0 0 30 30 0 ]);\npatch([21.1 26.88 30.88 34.88 38.88 30.88 25.1 21.1 ],[19.44 19.44 23.4"
+	  "4 19.44 23.44 23.44 23.44 19.44 ],[1 1 1 ]);\npatch([25.1 30.88 26.88 21.1 25.1 ],[15.44 15.44 19.44 19.44 15.44 ],"
+	  "[0.931 0.946 0.973 ]);\npatch([21.1 26.88 30.88 25.1 21.1 ],[11.44 11.44 15.44 15.44 11.44 ],[1 1 1 ]);\npatch([25."
+	  "1 38.88 34.88 30.88 26.88 21.1 25.1 ],[7.44 7.44 11.44 7.44 11.44 11.44 7.44 ],[0.931 0.946 0.973 ]);\nfprintf('','"
+	  "COMMENT: end icon graphics');\nfprintf('','COMMENT: begin icon text');\n\n\ncolor('black');disp('Assert');\nfprintf"
+	  "('','COMMENT: end icon text');"
 	}
 	Block {
 	  BlockType		  Reference
@@ -2071,7 +2108,7 @@ Model {
 	  Position		  [540, 86, 600, 114]
 	  BackgroundColor	  "gray"
 	  AncestorBlock		  "casper_library_delays/delay_bram"
-	  LibraryVersion	  "1.35"
+	  LibraryVersion	  "*1.35"
 	  UserDataPersistent	  on
 	  UserData		  "DataTag2"
 	  MinAlgLoopOccurrences	  off
@@ -2320,9 +2357,9 @@ Model {
 	    DstPort		    1
 	  }
 	  Branch {
-	    Points		    [0, 140; -390, 0; 0, -65]
-	    DstBlock		    "ad"
-	    DstPort		    3
+	    Points		    [0, 140]
+	    DstBlock		    "Assert"
+	    DstPort		    1
 	  }
 	}
 	Line {
@@ -2391,6 +2428,13 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "ad"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Assert"
+	  SrcPort		  1
+	  Points		  [-170, 0; 0, -65]
+	  DstBlock		  "ad"
+	  DstPort		  3
 	}
       }
     }
@@ -2954,6 +2998,44 @@ Model {
 	  Position		  [200, 143, 230, 157]
 	  Port			  "5"
 	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Assert"
+	  SID			  "136"
+	  Ports			  [1, 1]
+	  Position		  [420, 225, 480, 255]
+	  BlockMirror		  on
+	  ShowName		  off
+	  LibraryVersion	  "1.2"
+	  SourceBlock		  "xbsIndex_r4/Assert"
+	  SourceType		  "Xilinx Assert Block"
+	  infoedit		  "Asserts a user-defined sample rate and/or type on a signal.<br><br>Hardware notes: In hardware this bl"
+	  "ock costs nothing."
+	  assert_type		  on
+	  type_source		  "Explicitly"
+	  gui_display_data_type	  "Fixed-point"
+	  arith_type		  "Signed  (2's comp)"
+	  n_bits		  "21"
+	  bin_pt		  "14"
+	  preci_type		  "Single"
+	  exp_width		  "8"
+	  frac_width		  "24"
+	  assert_rate		  on
+	  rate_source		  "Explicitly"
+	  period		  "1"
+	  output_port		  on
+	  has_advanced_control	  "0"
+	  sggui_pos		  "-1,-1,-1,-1"
+	  block_type		  "assert"
+	  sg_icon_stat		  "60,30,1,1,white,blue,0,9657e937,left,,[ ],[ ]"
+	  sg_mask_display	  "fprintf('','COMMENT: begin icon graphics');\npatch([0 60 60 0 0 ],[0 0 30 30 0 ],[0.77 0.82 0.91"
+	  " ]);\nplot([0 60 60 0 0 ],[0 0 30 30 0 ]);\npatch([21.1 26.88 30.88 34.88 38.88 30.88 25.1 21.1 ],[19.44 19.44 23.4"
+	  "4 19.44 23.44 23.44 23.44 19.44 ],[1 1 1 ]);\npatch([25.1 30.88 26.88 21.1 25.1 ],[15.44 15.44 19.44 19.44 15.44 ],"
+	  "[0.931 0.946 0.973 ]);\npatch([21.1 26.88 30.88 25.1 21.1 ],[11.44 11.44 15.44 15.44 11.44 ],[1 1 1 ]);\npatch([25."
+	  "1 38.88 34.88 30.88 26.88 21.1 25.1 ],[7.44 7.44 11.44 7.44 11.44 11.44 7.44 ],[0.931 0.946 0.973 ]);\nfprintf('','"
+	  "COMMENT: end icon graphics');\nfprintf('','COMMENT: begin icon text');\n\n\ncolor('black');disp('Assert');\nfprintf"
+	  "('','COMMENT: end icon text');"
 	}
 	Block {
 	  BlockType		  Reference
@@ -4164,7 +4246,7 @@ Model {
 	  Position		  [540, 86, 600, 114]
 	  BackgroundColor	  "gray"
 	  AncestorBlock		  "casper_library_delays/delay_bram"
-	  LibraryVersion	  "1.35"
+	  LibraryVersion	  "*1.35"
 	  UserDataPersistent	  on
 	  UserData		  "DataTag3"
 	  MinAlgLoopOccurrences	  off
@@ -4410,12 +4492,12 @@ Model {
 	  SrcPort		  1
 	  Points		  [30, 0]
 	  Branch {
-	    Points		    [0, 140; -390, 0; 0, -65]
-	    DstBlock		    "bd"
-	    DstPort		    3
+	    DstBlock		    "Delay2"
+	    DstPort		    1
 	  }
 	  Branch {
-	    DstBlock		    "Delay2"
+	    Points		    [0, 140]
+	    DstBlock		    "Assert"
 	    DstPort		    1
 	  }
 	}
@@ -4485,6 +4567,13 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "bd"
 	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Assert"
+	  SrcPort		  1
+	  Points		  [-170, 0; 0, -65]
+	  DstBlock		  "bd"
+	  DstPort		  3
 	}
       }
     }
