@@ -2,6 +2,16 @@
 /*.autosave
 /*.log
 
+# Ignore all files in auto_vzmac_core directory
+/auto_vzmac_core/*
+# Then UN-ignore auto_vzmac_core/auto_vzmac_core.ngc
+!/auto_vzmac_core/auto_vzmac_core.ngc
+
+# Ignore all files in cross_vzmac_core directory
+/cross_vzmac_core/*
+# Then UN-ignore cross_vzmac_core/cross_vzmac_core.ngc
+!/cross_vzmac_core/cross_vzmac_core.ngc
+
 # Ignore all files in fft_core directory
 /fft_core/*
 # Then UN-ignore fft_core/fft_core.ngc
