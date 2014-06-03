@@ -27,9 +27,9 @@ function cross_vzmac_core_config(this_block)
   valid_port.setType('UFix_1_0');
   valid_port.useHDLVector(false);
   re_port = this_block.port('re');
-  re_port.setType('UFix_21_0');
+  re_port.setType('Fix_21_0');
   im_port = this_block.port('im');
-  im_port.setType('UFix_21_0');
+  im_port.setType('Fix_21_0');
 
   % -----------------------------
   if (this_block.inputTypesKnown)
