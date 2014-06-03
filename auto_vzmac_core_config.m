@@ -24,7 +24,7 @@ function auto_vzmac_core_config(this_block)
   valid_port.setType('UFix_1_0');
   valid_port.useHDLVector(false);
   re_port = this_block.port('re');
-  re_port.setType('UFix_20_0');
+  re_port.setType('UFix_20_14');
 
   % -----------------------------
   if (this_block.inputTypesKnown)
