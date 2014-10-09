@@ -1,6 +1,7 @@
 # Ignore files
 /*.autosave
 /*.log
+/startsg.local
 
 # Ignore all files in auto_vzmac_core directory
 /auto_vzmac_core/*
