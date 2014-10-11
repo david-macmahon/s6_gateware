@@ -21,7 +21,7 @@ function auto_vzmac_core_config(this_block)
   this_block.addSimulinkOutport('re');
 
   valid_port = this_block.port('valid');
-  valid_port.setType('UFix_1_0');
+  valid_port.setType('Bool');
   valid_port.useHDLVector(false);
   re_port = this_block.port('re');
   re_port.setType('UFix_20_14');
