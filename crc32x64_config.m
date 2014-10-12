@@ -78,8 +78,8 @@ function crc32x64_config(this_block)
 
   %    this_block.addFile('');
   %    this_block.addFile('');
-  this_block.addFile('crc32x64/crclut.v');
-  this_block.addFile('crc32x64/crc32x64.v');
+  this_block.addFile('verilog/crclut.v');
+  this_block.addFile('verilog/crc32x64.v');
 
 return;
 
