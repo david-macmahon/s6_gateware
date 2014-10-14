@@ -31,3 +31,5 @@
 /s6/bit_files/*
 # ...then UN-ignore s6/bit_files/*.bof.gz files.
 !/s6/bit_files/*.bof.gz
+# ...also UN-ignore all files in s6/ucf
+!/s6/ucf

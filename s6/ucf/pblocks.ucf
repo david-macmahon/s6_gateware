@@ -1,0 +1,26 @@
+# Each pfb_fir instance drives four fft instances.
+# Two fft instances fit comfortably in 3 clock regions.
+# The corresponding pfb_fir is allowed to sprawl across all 6 clock regions.
+
+# PBlocks for pfb_fir_0 and fft0 - fft3
+#
+AREA_GROUP "pfb0_pblock"  RANGE=CLOCKREGION_X0Y0:CLOCKREGION_X0Y5;
+AREA_GROUP "fft01_pblock" RANGE=CLOCKREGION_X0Y0:CLOCKREGION_X0Y2;
+AREA_GROUP "fft23_pblock" RANGE=CLOCKREGION_X0Y3:CLOCKREGION_X0Y5;
+
+INST "*/s6_x0/pfb_*/pfb_fir_0/*" AREA_GROUP = "pfb0_pblock";
+INST "*/s6_x0/pfb_*/fft_0/*" AREA_GROUP = "fft01_pblock";
+INST "*/s6_x0/pfb_*/fft_1/*" AREA_GROUP = "fft01_pblock";
+INST "*/s6_x0/pfb_*/fft_2/*" AREA_GROUP = "fft23_pblock";
+INST "*/s6_x0/pfb_*/fft_3/*" AREA_GROUP = "fft23_pblock";
+
+# PBlocks for pfb_fir_1 and fft4 - fft7
+AREA_GROUP "pfb1_pblock"  RANGE=CLOCKREGION_X1Y0:CLOCKREGION_X1Y5;
+AREA_GROUP "fft45_pblock" RANGE=CLOCKREGION_X1Y0:CLOCKREGION_X1Y2;
+AREA_GROUP "fft67_pblock" RANGE=CLOCKREGION_X1Y3:CLOCKREGION_X1Y5;
+
+INST "*/s6_x0/pfb_*/pfb_fir_1/*" AREA_GROUP = "pfb1_pblock";
+INST "*/s6_x0/pfb_*/fft_4/*" AREA_GROUP = "fft45_pblock";
+INST "*/s6_x0/pfb_*/fft_5/*" AREA_GROUP = "fft45_pblock";
+INST "*/s6_x0/pfb_*/fft_6/*" AREA_GROUP = "fft67_pblock";
+INST "*/s6_x0/pfb_*/fft_7/*" AREA_GROUP = "fft67_pblock";
