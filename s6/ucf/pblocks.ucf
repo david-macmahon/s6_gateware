@@ -3,7 +3,6 @@
 # The corresponding pfb_fir is allowed to sprawl across all 6 clock regions.
 
 # PBlocks for pfb_fir_0 and fft0 - fft3
-#
 AREA_GROUP "pfb0_pblock"  RANGE=CLOCKREGION_X0Y0:CLOCKREGION_X0Y5;
 AREA_GROUP "fft01_pblock" RANGE=CLOCKREGION_X0Y0:CLOCKREGION_X0Y2;
 AREA_GROUP "fft23_pblock" RANGE=CLOCKREGION_X0Y3:CLOCKREGION_X0Y5;
@@ -24,3 +23,7 @@ INST "*/s6_x0/pfb_*/fft_4/*" AREA_GROUP = "fft45_pblock";
 INST "*/s6_x0/pfb_*/fft_5/*" AREA_GROUP = "fft45_pblock";
 INST "*/s6_x0/pfb_*/fft_6/*" AREA_GROUP = "fft67_pblock";
 INST "*/s6_x0/pfb_*/fft_7/*" AREA_GROUP = "fft67_pblock";
+
+# Pblock for packetizers
+AREA_GROUP "pkt_pblock"  RANGE=CLOCKREGION_X0Y7:CLOCKREGION_X0Y7;
+INST "*/s6_x0/packetize_*" AREA_GROUP = "pkt_pblock";
