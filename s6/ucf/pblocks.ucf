@@ -25,5 +25,7 @@ INST "*/s6_x0/pfb_*/fft_6/*" AREA_GROUP = "fft67_pblock";
 INST "*/s6_x0/pfb_*/fft_7/*" AREA_GROUP = "fft67_pblock";
 
 # Pblock for packetizers
-AREA_GROUP "pkt_pblock"  RANGE=CLOCKREGION_X0Y7:CLOCKREGION_X0Y7;
+AREA_GROUP "pkt_pblock" RANGE=SLICE_X48Y260:SLICE_X79Y319;
+AREA_GROUP "pkt_pblock" RANGE=RAMB18_X3Y104:RAMB18_X6Y127;
+AREA_GROUP "pkt_pblock" RANGE=RAMB36_X3Y52:RAMB36_X6Y63;
 INST "*/s6_x0/packetize_*" AREA_GROUP = "pkt_pblock";
