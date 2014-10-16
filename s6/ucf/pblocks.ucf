@@ -24,8 +24,64 @@ INST "*/s6_x0/pfb_*/fft_5/*" AREA_GROUP = "fft45_pblock";
 INST "*/s6_x0/pfb_*/fft_6/*" AREA_GROUP = "fft67_pblock";
 INST "*/s6_x0/pfb_*/fft_7/*" AREA_GROUP = "fft67_pblock";
 
-# Pblock for packetizers
-AREA_GROUP "pkt_pblock" RANGE=SLICE_X48Y260:SLICE_X79Y319;
-AREA_GROUP "pkt_pblock" RANGE=RAMB18_X3Y104:RAMB18_X6Y127;
-AREA_GROUP "pkt_pblock" RANGE=RAMB36_X3Y52:RAMB36_X6Y63;
-INST "*/s6_x0/packetize_*" AREA_GROUP = "pkt_pblock";
+# Pblocks for packetizers.
+#
+# The packetizers are functionally correct, but their coding is not very
+# timing-friendly (maybe due to a lack of pipelining in the state machine
+# and/or poorly controlled fanout?).
+#
+# The three sets of AREA_GROUPs all overlap in the chip, but they each cover
+# a different resource: SLICEs, RAMB18s, and RAMB36s.
+
+# SLICEs:
+#
+# +--------------+--------------+
+# |        63,319|        79,319|
+# +     pkt1     |     pkt3     |
+# |48,290        |64,290        |
+# +--------------+--------------+
+# |        63,289|        79,289|
+# +     pkt0     |     pkt2     |
+# |48,260        |64,260        |
+# +--------------+--------------+
+AREA_GROUP "pkt0_pblock" RANGE=SLICE_X48Y260:SLICE_X63Y289;
+AREA_GROUP "pkt1_pblock" RANGE=SLICE_X48Y290:SLICE_X63Y319;
+AREA_GROUP "pkt2_pblock" RANGE=SLICE_X64Y260:SLICE_X79Y289;
+AREA_GROUP "pkt3_pblock" RANGE=SLICE_X64Y290:SLICE_X79Y319;
+
+# RAMB18s:
+#
+# +--------------+--------------+
+# |         4,127|         6,127|
+# |     pkt1     |     pkt3     |
+# |3,116         |5,116         |
+# +--------------+--------------+
+# |         4,115|         6,115|
+# |     pkt0     |     pkt2     |
+# |3,104         |5,104         |
+# +--------------+--------------+
+AREA_GROUP "pkt0_pblock" RANGE=RAMB18_X3Y104:RAMB18_X4Y115;
+AREA_GROUP "pkt1_pblock" RANGE=RAMB18_X3Y116:RAMB18_X4Y127;
+AREA_GROUP "pkt2_pblock" RANGE=RAMB18_X5Y104:RAMB18_X6Y115;
+AREA_GROUP "pkt3_pblock" RANGE=RAMB18_X5Y116:RAMB18_X6Y127;
+
+# RAMB36s:
+#
+# +--------------+--------------+
+# |          4,63|          6,63|
+# |     pkt1     |     pkt3     |
+# |3,58          |5,58          |
+# +--------------+--------------+
+# |          4,57|          6,57|
+# |     pkt0     |     pkt2     |
+# |3,52          |5,52          |
+# +--------------+--------------+
+AREA_GROUP "pkt0_pblock" RANGE=RAMB36_X3Y52:RAMB36_X4Y57;
+AREA_GROUP "pkt1_pblock" RANGE=RAMB36_X3Y58:RAMB36_X4Y63;
+AREA_GROUP "pkt2_pblock" RANGE=RAMB36_X5Y52:RAMB36_X6Y57;
+AREA_GROUP "pkt3_pblock" RANGE=RAMB36_X5Y58:RAMB36_X6Y63;
+
+INST "*/s6_x0/packetize_*/packetizer0_*" AREA_GROUP = "pkt0_pblock";
+INST "*/s6_x0/packetize_*/packetizer1_*" AREA_GROUP = "pkt1_pblock";
+INST "*/s6_x0/packetize_*/packetizer2_*" AREA_GROUP = "pkt2_pblock";
+INST "*/s6_x0/packetize_*/packetizer3_*" AREA_GROUP = "pkt3_pblock";
