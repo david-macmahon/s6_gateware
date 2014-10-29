@@ -83,21 +83,33 @@ localparam DATABUF_DEPTH_BITS = clog2(NWORDS);
 
 localparam CRC_LATENCY = 7;
 
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] stop_word = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] word_count = 0;
+(* equivalent_register_removal = "no" *)
 reg [64-(NWORDS_BITS+1)-4-1:0] mcount = 0;
+(* equivalent_register_removal = "no" *)
 reg [64-(NWORDS_BITS+1)-4-1:0] mcount_out = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] pkt_start_addr = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] pkt_start_word = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] pkt_stop_word = 0;
 reg [3:0] src_id_out = 0;
 
 reg [63:0] din_reg = 0;
 
+(* equivalent_register_removal = "no" *)
 reg [63:0] dout_int = 0;
+(* equivalent_register_removal = "no" *)
 reg        dv_int = 0;
+(* equivalent_register_removal = "no" *)
 reg [ 3:0] dst_int = 0, dst_pipeline[CRC_LATENCY-1:0], dst_delay = 0;
+(* equivalent_register_removal = "no" *)
 reg        eof_int = 0, eof_pipeline[CRC_LATENCY-1:0];
+(* equivalent_register_removal = "no" *)
 reg        sof_int = 0;
 
 wire [63:0] dout_crc;
@@ -109,8 +121,11 @@ reg  [31:0] crc_crc1 = 0;
 reg [63:0] databuf[DATABUF_DEPTH-1:0];
 reg [63:0] databuf_out = 0;
 
+(* equivalent_register_removal = "no" *)
 reg databuf_we = 1'b0;
+(* equivalent_register_removal = "no" *)
 reg [DATABUF_DEPTH_BITS-1:0] wr_addr = 1'b0;
+(* equivalent_register_removal = "no" *)
 reg [DATABUF_DEPTH_BITS-1:0] rd_addr = 1'b0;
 
 // Output state machine
@@ -118,12 +133,18 @@ localparam IDLE   = 2'b00;
 localparam HEADER = 2'b01;
 localparam DATA   = 2'b10;
 localparam CRC    = 2'b11;
+(* equivalent_register_removal = "no" *)
 reg [1:0] state = IDLE;
 
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] pkt_word_count = 1'b0;
+(* equivalent_register_removal = "no" *)
 reg [2:0] oe_shift_reg = 0;
+(* equivalent_register_removal = "no" *)
 reg start = 0;
+(* equivalent_register_removal = "no" *)
 reg nodata_packets = 0;
+(* equivalent_register_removal = "no" *)
 reg last_packet = 0;
 
 // General purpose loop variable
