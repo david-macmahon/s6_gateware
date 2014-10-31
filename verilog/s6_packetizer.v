@@ -43,7 +43,10 @@
 //     {scount[47:0}, {word[10:0], 1'b0}, src_id[3:0]}
 //
 
-(* equivalent_register_removal = "no" *)
+(*
+  fsm_extract = "no",
+  equivalent_register_removal = "no"
+*)
 
 module s6_packetizer
 #(
@@ -133,7 +136,10 @@ localparam IDLE   = 2'b00;
 localparam HEADER = 2'b01;
 localparam DATA   = 2'b10;
 localparam CRC    = 2'b11;
-(* equivalent_register_removal = "no" *)
+(*
+  fsm_extract = "no",
+  equivalent_register_removal = "no"
+*)
 reg [1:0] state = IDLE;
 
 (* equivalent_register_removal = "no" *)
