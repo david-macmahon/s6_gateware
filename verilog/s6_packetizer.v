@@ -89,6 +89,8 @@ localparam CRC_LATENCY = 7;
 (* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] start_word_reg = 0;
 (* equivalent_register_removal = "no" *)
+reg [NWORDS_BITS-1:0] nwords_per_pkt_reg = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] stop_word = 0;
 (* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] word_count = 0;
@@ -192,8 +194,9 @@ end
 // These are expected to change very infrequently.
 always @(posedge clk) begin
   start_word_reg <= start_word;
-  stop_word <= start_word_reg + (nwords_per_pkt<<3) - 1;
-  pkt_stop_word <= nwords_per_pkt - 1;
+  nwords_per_pkt_reg <= nwords_per_pkt;
+  stop_word <= start_word_reg + (nwords_per_pkt_reg<<3) - 1;
+  pkt_stop_word <= nwords_per_pkt_reg - 1;
 end
 
 // Data buffer write enable logic
@@ -254,7 +257,7 @@ always @(posedge clk) begin
       pkt_start_word <= start_word_reg;
       // Start reading location 0; data valid after two cycles.
       rd_addr <= 0;
-      pkt_start_addr <= nwords_per_pkt;
+      pkt_start_addr <= nwords_per_pkt_reg;
       // Set "start" flag
       start <= 1;
     end else
@@ -262,7 +265,7 @@ always @(posedge clk) begin
 
 
     // Send "no data" packets?
-    nodata_packets <= (nwords_per_pkt == 0);
+    nodata_packets <= (nwords_per_pkt_reg == 0);
 
     // Detect last packet
     last_packet <= (dst_int == 7);
@@ -339,8 +342,8 @@ always @(posedge clk) begin
           // Start fetching data for start of next packet (takes two cycles)
           rd_addr <= pkt_start_addr;
           // Setup for next packet
-          pkt_start_addr <= pkt_start_addr + nwords_per_pkt;
-          pkt_start_word <= pkt_start_word + nwords_per_pkt;
+          pkt_start_addr <= pkt_start_addr + nwords_per_pkt_reg;
+          pkt_start_word <= pkt_start_word + nwords_per_pkt_reg;
           dst_int <= dst_int + 1;
 
           // Go to HEADER state
