@@ -87,6 +87,8 @@ localparam DATABUF_DEPTH_BITS = clog2(NWORDS);
 localparam CRC_LATENCY = 7;
 
 (* equivalent_register_removal = "no" *)
+reg [NWORDS_BITS-1:0] start_word_reg = 0;
+(* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] stop_word = 0;
 (* equivalent_register_removal = "no" *)
 reg [NWORDS_BITS-1:0] word_count = 0;
@@ -189,7 +191,8 @@ end
 // Pipelined calculations of stop_word and pkt_stop_word.
 // These are expected to change very infrequently.
 always @(posedge clk) begin
-  stop_word <= start_word + (nwords_per_pkt<<3) - 1;
+  start_word_reg <= start_word;
+  stop_word <= start_word_reg + (nwords_per_pkt<<3) - 1;
   pkt_stop_word <= nwords_per_pkt - 1;
 end
 
@@ -209,7 +212,7 @@ always @(posedge clk) begin
     databuf_out <= databuf[rd_addr];
 
     // Write control logic
-    if(word_count == start_word) begin
+    if(word_count == start_word_reg) begin
       databuf_we <= 1;
     end
 
@@ -243,12 +246,12 @@ always @(posedge clk) begin
     last_packet <= 0;
   end else begin
 
-    if(word_count == start_word) begin
+    if(word_count == start_word_reg) begin
       // Register mcount and src_id so that they will not change on us
       // during this output cycle.
       mcount_out <= mcount;
       src_id_out <= src_id;
-      pkt_start_word <= start_word;
+      pkt_start_word <= start_word_reg;
       // Start reading location 0; data valid after two cycles.
       rd_addr <= 0;
       pkt_start_addr <= nwords_per_pkt;
