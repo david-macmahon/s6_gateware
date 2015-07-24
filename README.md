@@ -14,7 +14,7 @@ $ git submodule update
 Whenever you pull/merge a new version of this repository, you should verify
 whether the mlib_devel version has changed and, if so, update it.  Since
 updating an already up-to-date submodule is essentially a no-op, you just need
-to follow the pull/merge command with a submodeul update command:
+to follow the pull/merge command with a submodule update command:
 
 ```bash
 $ git submodule update
