@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+      <UserUnit time="2000fs"></UserUnit>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/davidm/casper/s6_gateware/wavedata/auto_vzmac_core.wdb" id="1">
+         <top_modules>
+            <top_module name="auto_vzmac_core" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="20001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="7" />
+   <wvobject type="logic" fp_name="/auto_vzmac_core/Clock">
+      <obj_property name="ElementShortName">Clock</obj_property>
+      <obj_property name="ObjectShortName">Clock</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/auto_vzmac_core/sync/sync_in">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">sync_in</obj_property>
+      <obj_property name="ObjectShortName">sync_in</obj_property>
+      <obj_property name="label">/auto_vzmac_core/sync/sync_in</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/auto_vzmac_core/re0/a">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">a[7:0]</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">7</obj_property>
+      <obj_property name="radix_otherWidth">1</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/auto_vzmac_core/im0/b">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">b[7:0]</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">7</obj_property>
+      <obj_property name="radix_otherWidth">1</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/auto_vzmac_core/real_vzmac/delay_bram/prev">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">prev[20:0]</obj_property>
+      <obj_property name="ObjectShortName">prev[20:0]</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">14</obj_property>
+      <obj_property name="radix_otherWidth">7</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/auto_vzmac_core/real_vzmac/Delay2/re">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">re[20:0]</obj_property>
+      <obj_property name="ObjectShortName">re[20:0]</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+      <obj_property name="Radix">REALRADIX</obj_property>
+      <obj_property name="radix_realType">SIGNEDFIXEDPOINTRADIX</obj_property>
+      <obj_property name="radix_fractionWidth">14</obj_property>
+      <obj_property name="radix_otherWidth">7</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_HOLD</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/auto_vzmac_core/real_vzmac/Delay1/valid">
+      <obj_property name="DisplayName">FullPathName</obj_property>
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+      <obj_property name="label">/auto_vzmac_core/real_vzmac/Delay1/valid</obj_property>
+      <obj_property name="CellHeight">50</obj_property>
+   </wvobject>
+</wave_config>
