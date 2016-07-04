@@ -26,8 +26,7 @@
 
 # Ignore all files in pfb_fir_core directory
 /pfb_fir_core/*
-# Then UN-ignore pfb_fir_core/pfb_fir_core.ngc
-!/pfb_fir_core/pfb_fir_core.ngc
+# Then UN-ignore pfb_fir_core/pfb_fir_core.dcp
 !/pfb_fir_core/pfb_fir_core.dcp
 
 # Ignore all files in s6 directory...
