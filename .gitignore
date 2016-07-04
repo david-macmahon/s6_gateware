@@ -20,8 +20,7 @@
 
 # Ignore all files in fft_core directory
 /fft_core/*
-# Then UN-ignore fft_core/fft_core.ngc
-!/fft_core/fft_core.ngc
+# Then UN-ignore fft_core/fft_core.dcp
 !/fft_core/fft_core.dcp
 
 # Ignore all files in pfb_fir_core directory
