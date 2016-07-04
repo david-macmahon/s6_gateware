@@ -3,6 +3,10 @@
 /*.log
 /pkt*.dat
 /startsg.local
+/.Xil/
+/ModelUpgradeStatus.htm
+/SysgenFeatureReport.htm
+/slprj/
 
 # Ignore all files in auto_vzmac_core directory
 /auto_vzmac_core/*
