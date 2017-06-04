@@ -22,10 +22,8 @@ module crclut #(
   output [OWIDTH-1:0] data
 );
 
-  // Lookup table that is OWIDTH wide and 2**IWIDTH deep
-  reg [OWIDTH-1:0] lut [0:2**IWIDTH-1];
-  integer i;
-
+  // Function to compute LUT value for given address.
+  // Used when initializing the LUT.
   function [OWIDTH-1:0] lutinit(input [IWIDTH-1:0] a);
     integer i;
     reg [OWIDTH-1:0] b;
@@ -56,13 +54,18 @@ module crclut #(
     end
   endfunction
 
+  // Lookup table that is OWIDTH wide and 2**IWIDTH deep
+  reg [OWIDTH-1:0] lut [0:2**IWIDTH-1];
+  integer i;
+
+  // Initialize the LUT
   initial begin
     for(i=0; i<2**IWIDTH; i=i+1)
-      lut[i] = lutinit(i);
+      lut[i] = lutinit(i[IWIDTH-1:0]);
 
-    //i='h00; $display("lutinit[%x] = %x", i, lutinit(i));
-    //i='h80; $display("lutinit[%x] = %x", i, lutinit(i));
-    //$display("lutinit[0] = %b", lutinit(0));
+    //i='h00; $display("lutinit[%x] = %x", i, lutinit(i[IWIDTH-1:0]));
+    //i='h80; $display("lutinit[%x] = %x", i, lutinit(i[IWIDTH-1:0]));
+    //$display("lutinit[0] = %b", lutinit({IWIDTH{1'b0}}));
   end // initial
 
   assign data = lut[addr];

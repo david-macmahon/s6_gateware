@@ -58,7 +58,7 @@ generate
   for(g=0; g<8; g=g+1) begin: input_luts
     crclut #(
       .XN(8*g)
-    ) lut (
+    ) input_lut (
       .addr(data_pipeline[1][8*g+:8]),
       .data(lut_out_wire[g])
     );
@@ -109,7 +109,7 @@ generate
   for(g=0; g<4; g=g+1) begin: accum_luts
     crclut #(
       .XN(8*g+32)
-    ) lut (
+    ) accum_lut (
       .addr(crc_reg[31-8*g-:8]),
       .data(acclut_out[g])
     );
