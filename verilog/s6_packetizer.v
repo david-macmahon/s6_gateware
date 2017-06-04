@@ -54,17 +54,25 @@ module s6_packetizer
 )
 (
   input clk,
+  // verilator lint_off UNUSED
   input ce,
+  // verilator lint_on UNUSED
   input sync,
   input [63:0] din,
   input [NWORDS_BITS-1:0] start_word,
   input [NWORDS_BITS-1:0] nwords_per_pkt,
   input [3:0] src_id,
-  output reg [63:0] dout,
-  output reg dv,
-  output reg [3:0] dst,
-  output reg eof
+  output [63:0] dout,
+  output dv,
+  output [3:0] dst,
+  output eof
 );
+
+// Output registers
+reg [63:0] dout_reg; assign dout = dout_reg;
+reg        dv_reg;   assign dv   = dv_reg;
+reg  [3:0] dst_reg;  assign dst  = dst_reg;
+reg        eof_reg;  assign eof  = eof_reg;
 
 // Xilinx xst doesn't like using system function calls like $clog to assign to
 // localparams, so we define this constant function "clog" to replace the
@@ -131,9 +139,9 @@ reg [63:0] databuf_out = 0;
 (* equivalent_register_removal = "no" *)
 reg databuf_we = 1'b0;
 (* equivalent_register_removal = "no" *)
-reg [DATABUF_DEPTH_BITS-1:0] wr_addr = 1'b0;
+reg [DATABUF_DEPTH_BITS-1:0] wr_addr = 0;
 (* equivalent_register_removal = "no" *)
-reg [DATABUF_DEPTH_BITS-1:0] rd_addr = 1'b0;
+reg [DATABUF_DEPTH_BITS-1:0] rd_addr = 0;
 
 // Output state machine
 localparam IDLE   = 2'b00;
@@ -147,7 +155,7 @@ localparam CRC    = 2'b11;
 reg [1:0] state = IDLE;
 
 (* equivalent_register_removal = "no" *)
-reg [NWORDS_BITS-1:0] pkt_word_count = 1'b0;
+reg [NWORDS_BITS-1:0] pkt_word_count = 0;
 (* equivalent_register_removal = "no" *)
 reg [2:0] oe_shift_reg = 0;
 (* equivalent_register_removal = "no" *)
@@ -168,10 +176,10 @@ initial begin
     dst_pipeline[i] = 0;
     eof_pipeline[i] = 0;
   end
-  dout <= 64'b0;
-  dv <= 1'b0;
-  dst <= 4'h0;
-  eof <= 1'b0;
+  dout_reg = 64'b0;
+  dv_reg = 1'b0;
+  dst_reg = 4'h0;
+  eof_reg = 1'b0;
 end
 
 // Word_count and mcount
@@ -180,9 +188,11 @@ always @(posedge clk) begin
     // Reset
     word_count <= 0;
     mcount <= 0;
+  // verilator lint_off WIDTH
   end else if(word_count == NWORDS-1) begin
+  // verilator lint_on WIDTH
     // Roll over word_count, increment mcount
-    word_count <= 1'b0;
+    word_count <= {NWORDS_BITS{1'b0}};
     mcount <= mcount + 1;
   end else begin
     // increment word_count
@@ -363,7 +373,10 @@ crc32x64 crc_gen (
   .data_in(dout_int),
   .valid_out(dv_crc),
   .data_out(dout_crc),
-  .crc(crc_crc)
+  .crc(crc_crc),
+  // verilator lint_off PINCONNECTEMPTY
+  .init_out(/*NC*/)
+  // verilator lint_on PINCONNECTEMPTY
 );
 
 // The eof and dst pipelines
@@ -378,17 +391,17 @@ end
 
 // The CRC mux
 always @(posedge clk) begin
-  dv <= dv_crc;
+  dv_reg <= dv_crc;
   dst_delay <= dst_pipeline[CRC_LATENCY-1];
-  dst <= dst_delay;
-  eof <= eof_pipeline[CRC_LATENCY-1];
+  dst_reg <= dst_delay;
+  eof_reg <= eof_pipeline[CRC_LATENCY-1];
   // Invert and byte swap so that the CRC will be compatible with zlib's crc32
   // function, allowing for easy verification on computers.
   crc_crc1 <= ~{crc_crc[7:0], crc_crc[15:8], crc_crc[23:16], crc_crc[31:24]};
   if(eof_pipeline[CRC_LATENCY-1])
-    dout <= {crc_crc1, 32'b0};
+    dout_reg <= {crc_crc1, 32'b0};
   else
-    dout <= dout_crc;
+    dout_reg <= dout_crc;
 end
 
 endmodule
