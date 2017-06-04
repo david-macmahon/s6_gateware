@@ -48,12 +48,16 @@ s6_packetizer #(
 always
   #0.5 clk = !clk;
 
-initial 
- #1000  $finish; 
+initial
+ #1000  $finish;
 
 initial begin
   $dumpfile("s6_packetizer_tb.vcd");
   $dumpvars;
+  $display("time sync              din state             dout dst eof dv");
+  //           0    0 0000000000000000     0 0000000000000000   0   0  0
+  $monitor("%4d    %b %x     %d %x   %x   %b  %b",
+    $time, sync, din, dut.state, dout, dst, eof, dv);
 end
 
 always @(posedge clk) begin
