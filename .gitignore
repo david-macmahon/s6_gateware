@@ -32,9 +32,12 @@
 /s6/*
 # ...then UN-ignore s6/bit_files directory...
 !/s6/bit_files
+!/s6/outputs
 # ...then ignore all files in s6/bit_files directory...
 /s6/bit_files/*
+/s6/outputs/*
 # ...then UN-ignore s6/bit_files/*.bof.gz files.
 !/s6/bit_files/*.bof.gz
+!/s6/outputs/*.bof
 # ...also UN-ignore all files in s6/ucf
 !/s6/ucf
