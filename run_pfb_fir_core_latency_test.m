@@ -1,5 +1,5 @@
 % This script expects a 256 sample window times 16 taps
-function [ din, dout ] = run_fft_casper_test()
+function [ din, dout ] = run_pfb_fir_core_latency_test()
 
   % Setup simin variable
   %

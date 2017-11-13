@@ -1,5 +1,5 @@
 % This script expects a 256 sample window times 16 taps
-function out = run_fft_casper_test()
+function out = run_pfb_fir_core_test()
 
   % Setup simin variable
   %
