@@ -41,3 +41,8 @@
 !/s6/outputs/*.bof
 # ...also UN-ignore all files in s6/ucf
 !/s6/ucf
+
+# Ignore everything in wavedata...
+/wavedata/*
+# ...then UN-ignore wavedata/*.wcfg files
+~/wavedata/*.wcfg
