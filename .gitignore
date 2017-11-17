@@ -28,6 +28,11 @@
 # Then UN-ignore pfb_fir_core/pfb_fir_core.dcp
 !/pfb_fir_core/pfb_fir_core.dcp
 
+# Ignore all files in transpose_core directory
+/transpose_core/*
+# Then UN-ignore transpose_core/transpose_core.dcp
+!/transpose_core/transpose_core.dcp
+
 # Ignore all files in s6 directory...
 /s6/*
 # ...then UN-ignore s6/bit_files directory...
