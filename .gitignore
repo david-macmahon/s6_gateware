@@ -1,5 +1,6 @@
 # Ignore files
 /*.autosave
+/*.jou
 /*.log
 /pkt*.dat
 /startsg.local
@@ -22,6 +23,11 @@
 /fft_core/*
 # Then UN-ignore fft_core/fft_core.dcp
 !/fft_core/fft_core.dcp
+
+# Ignore all files in packetizer_core directory
+/packetizer_core/*
+# Then UN-ignore packetizer_core/packetizer_core.dcp
+!/packetizer_core/packetizer_core.dcp
 
 # Ignore all files in pfb_fir_core directory
 /pfb_fir_core/*
