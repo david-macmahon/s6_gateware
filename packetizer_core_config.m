@@ -108,132 +108,132 @@ function packetizer_core_config(this_block)
 
     this_block.port('tx_enable').useHDLVector(false);
 
-    if (this_block.port('ip_dest_0').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_0" must have width=64.');
+    if (this_block.port('ip_dest_0').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_0" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_1').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_1" must have width=64.');
+    if (this_block.port('ip_dest_1').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_1" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_10').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_10" must have width=64.');
+    if (this_block.port('ip_dest_10').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_10" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_11').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_11" must have width=64.');
+    if (this_block.port('ip_dest_11').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_11" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_12').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_12" must have width=64.');
+    if (this_block.port('ip_dest_12').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_12" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_13').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_13" must have width=64.');
+    if (this_block.port('ip_dest_13').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_13" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_14').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_14" must have width=64.');
+    if (this_block.port('ip_dest_14').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_14" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_15').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_15" must have width=64.');
+    if (this_block.port('ip_dest_15').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_15" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_16').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_16" must have width=64.');
+    if (this_block.port('ip_dest_16').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_16" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_17').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_17" must have width=64.');
+    if (this_block.port('ip_dest_17').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_17" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_18').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_18" must have width=64.');
+    if (this_block.port('ip_dest_18').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_18" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_19').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_19" must have width=64.');
+    if (this_block.port('ip_dest_19').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_19" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_2').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_2" must have width=64.');
+    if (this_block.port('ip_dest_2').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_2" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_20').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_20" must have width=64.');
+    if (this_block.port('ip_dest_20').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_20" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_21').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_21" must have width=64.');
+    if (this_block.port('ip_dest_21').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_21" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_22').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_22" must have width=64.');
+    if (this_block.port('ip_dest_22').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_22" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_23').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_23" must have width=64.');
+    if (this_block.port('ip_dest_23').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_23" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_24').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_24" must have width=64.');
+    if (this_block.port('ip_dest_24').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_24" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_25').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_25" must have width=64.');
+    if (this_block.port('ip_dest_25').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_25" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_26').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_26" must have width=64.');
+    if (this_block.port('ip_dest_26').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_26" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_27').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_27" must have width=64.');
+    if (this_block.port('ip_dest_27').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_27" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_28').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_28" must have width=64.');
+    if (this_block.port('ip_dest_28').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_28" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_29').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_29" must have width=64.');
+    if (this_block.port('ip_dest_29').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_29" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_3').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_3" must have width=64.');
+    if (this_block.port('ip_dest_3').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_3" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_30').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_30" must have width=64.');
+    if (this_block.port('ip_dest_30').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_30" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_31').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_31" must have width=64.');
+    if (this_block.port('ip_dest_31').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_31" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_4').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_4" must have width=64.');
+    if (this_block.port('ip_dest_4').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_4" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_5').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_5" must have width=64.');
+    if (this_block.port('ip_dest_5').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_5" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_6').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_6" must have width=64.');
+    if (this_block.port('ip_dest_6').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_6" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_7').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_7" must have width=64.');
+    if (this_block.port('ip_dest_7').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_7" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_8').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_8" must have width=64.');
+    if (this_block.port('ip_dest_8').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_8" must have width=32.');
     end
 
-    if (this_block.port('ip_dest_9').width ~= 64);
-      this_block.setError('Input data type for port "ip_dest_9" must have width=64.');
+    if (this_block.port('ip_dest_9').width ~= 32);
+      this_block.setError('Input data type for port "ip_dest_9" must have width=32.');
     end
 
   end  % if(inputTypesKnown)
