@@ -23,6 +23,7 @@ function run_packetizer_core_test()
   % Column 2 through 33 are dest_ip addresses
   dstin = zeros(1, 33);
   dstin(2:33) = hex2dec('0a0a0a00') + [1:32];
+  dstin(3) = 0;
 
   % Get model workspace and assign simin
   ws = get_param('packetizer_core', 'ModelWorkspace');
